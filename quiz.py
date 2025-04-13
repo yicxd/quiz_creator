@@ -1,19 +1,26 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QFormLayout, QLineEdit, QWidget
+from PyQt6.QtWidgets import ( 
+    QApplication, QFormLayout, QLineEdit, QWidget, 
+    QLabel, QComboBox, QCheckBox, QPushButton
+)
 
 app = QApplication([]) #this is the application that will open
 window = QWidget() #this is the receiver of mouse and keyboard actions
 window.setWindowTitle("Quiz Creator") #title
-window.setFixedSize(600, 400) #resolution of the window
+window.setFixedSize(500, 600) #resolution of the window
 layout = QFormLayout() #Qformlayout uses a form layout
+
+#spacing of the layout
+layout.setVerticalSpacing(15)
+layout.setHorizontalSpacing(20) 
+layout.setContentsMargins(30, 30, 30, 30)
 
 
 while True:
     window.setLayout(layout)
     window.show() #will open the window
     try:
-        layout.addRow("Question:", QLineEdit())
-        question = input("Enter a question: ")
+        layout.addRow(QLabel("Question:"))
         sep_question = question + "\n" #seperates the questions by lines, for organizing
         question_file = open("questions.txt", "a") #opens file name and a is append
         question_file.write(sep_question) #will write the input in the txt file
