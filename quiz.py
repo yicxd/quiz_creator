@@ -1,7 +1,7 @@
 import sys
 from PyQt6.QtWidgets import ( 
     QApplication, QFormLayout, QLineEdit, QWidget, #these are the main functions for the gui
-    QLabel, QComboBox, QCheckBox, QPushButton,
+    QLabel, QComboBox, QPushButton
 )
 from PyQt6.QtGui import QFont #these are for aesthetics
 from PyQt6.QtCore import Qt #for alignment
@@ -20,18 +20,11 @@ class quiz(QWidget):
         layout.setContentsMargins(30, 30, 30, 30)
         self.setLayout(layout)
 
-        self.question = QLineEdit()
-        self.question.setPlaceholderText("Enter here")
-
-        self.a = QLineEdit()
-        self.a.setPlaceholderText("Enter here")
-        self.b = QLineEdit()
-        self.b.setPlaceholderText("Enter here")
-        self.c = QLineEdit()
-        self.c.setPlaceholderText("Enter here")
-        self.d = QLineEdit()
-        self.d.setPlaceholderText("Enter here")
-
+        self.question = QLineEdit(placeholderText="Enter here")
+        self.a = QLineEdit(placeholderText="Enter here")
+        self.b = QLineEdit(placeholderText="Enter here")
+        self.c = QLineEdit(placeholderText="Enter here")
+        self.d = QLineEdit(placeholderText="Enter here")
         self.correct = QComboBox()
         self.correct.addItems(["a", "b", "c", "d"])
 
