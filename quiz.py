@@ -57,6 +57,11 @@ class quiz(QWidget):
         layout.addRow(QLabel("d):"), self.d)
         layout.addRow(QLabel("Correct answer:"), self.correct)
 
+        #status of inputs if they are complete or not
+        self.status_label = QLabel("")
+        self.status_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        layout.addRow(self.status_label)
+
         #a submit button
         submit = QPushButton("Save")
         submit.setFont(QFont("Arial", 10, QFont.Weight.Bold))
@@ -82,6 +87,11 @@ class quiz(QWidget):
         d = self.d.text()
         correct = self.correct.currentText()
 
+        if not quest or not a or not b or not c or not d: #checks if the fields are complete
+            self.status_label.setText("Please fill in all the fields")
+            self.status_label.setStyleSheet("color: #800080; font-weight: bold;")
+            return
+
         #now formatted and organized
         quest_file = open("questions.txt", "a")
         quest_file.write(f"{quest}\n")
@@ -89,7 +99,16 @@ class quiz(QWidget):
         answer_file = open("answers.txt", "a")
         answer_file.write(f"a) {a}, b) {b}, c) {c}, d) {d}\nCorrect: {correct}\n")
 
-        print("Saved")
+        self.status_label.setText("Saved")
+        self.status_label.setStyleSheet("color: #2da89e; font-weight: bold;")
+        
+        #clears the field after saving
+        self.question.clear()
+        self.a.clear()
+        self.b.clear()
+        self.c.clear()
+        self.d.clear()
+        self.correct.setCurrentIndex(0)
 
 
 if __name__ == "__main__":
