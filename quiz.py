@@ -18,6 +18,7 @@ class quiz(QWidget):
         layout.setVerticalSpacing(15)
         layout.setHorizontalSpacing(20) 
         layout.setContentsMargins(30, 30, 30, 30)
+        self.setLayout(layout)
 
         question = 0
         answers = 0
@@ -35,17 +36,23 @@ class quiz(QWidget):
         self.question = QLineEdit()
         self.question.setPlaceholderText("Enter here")
 
-        self.answers = QLineEdit()
-        self.answers.setPlaceholderText("Enter here")
+        self.a = QLineEdit()
+        self.a.setPlaceholderText("Enter here")
+        self.b = QLineEdit()
+        self.b.setPlaceholderText("Enter here")
+        self.c = QLineEdit()
+        self.c.setPlaceholderText("Enter here")
+        self.d = QLineEdit()
+        self.d.setPlaceholderText("Enter here")
 
         self.correct = QComboBox()
         self.correct.addItems(["a", "b", "c", "d"])
 
         layout.addRow(QLabel("Question:"), self.question) #adds a row to accept input
-        layout.addRow(QLabel("a):"), self.answers)
-        layout.addRow(QLabel("b):"), self.answers)
-        layout.addRow(QLabel("c):"), self.answers)
-        layout.addRow(QLabel("d):"), self.answers)
+        layout.addRow(QLabel("a):"), self.a)
+        layout.addRow(QLabel("b):"), self.b)
+        layout.addRow(QLabel("c):"), self.c)
+        layout.addRow(QLabel("d):"), self.d)
         layout.addRow(QLabel("What is the correct answer?:"), self.correct)
 
 if __name__ == "__main__":
