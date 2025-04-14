@@ -20,19 +20,6 @@ class quiz(QWidget):
         layout.setContentsMargins(30, 30, 30, 30)
         self.setLayout(layout)
 
-        question = 0
-        answers = 0
-
-        sep_question = str(question) + "\n" #seperates the questions by lines, for organizing
-        question_file = open("questions.txt", "a") #opens file name and a is append
-        question_file.write(sep_question) #will write the input in the txt file
-        question_file.close()
-
-        sep_answers = str(answers) + "\n"
-        answer_file = open("answers.txt", "a")
-        answer_file.write(sep_answers)
-        answer_file.close()
-
         self.question = QLineEdit()
         self.question.setPlaceholderText("Enter here")
 
@@ -48,12 +35,24 @@ class quiz(QWidget):
         self.correct = QComboBox()
         self.correct.addItems(["a", "b", "c", "d"])
 
-        layout.addRow(QLabel("Question:"), self.question) #adds a row to accept input
-        layout.addRow(QLabel("a):"), self.a)
-        layout.addRow(QLabel("b):"), self.b)
-        layout.addRow(QLabel("c):"), self.c)
-        layout.addRow(QLabel("d):"), self.d)
-        layout.addRow(QLabel("What is the correct answer?:"), self.correct)
+        quest = layout.addRow(QLabel("Question:"), self.question) #adds a row to accept input
+        a = layout.addRow(QLabel("a):"), self.a)
+        b = layout.addRow(QLabel("b):"), self.b)
+        c = layout.addRow(QLabel("c):"), self.c)
+        d = layout.addRow(QLabel("d):"), self.d)
+        correct = layout.addRow(QLabel("What is the correct answer?:"), self.correct)
+
+        answers = a, b, c, d, correct
+        sep_answers = str(answers) + "\n"
+        answer_file = open("answers.txt", "a")
+        answer_file.write(sep_answers)
+        answer_file.close()
+
+        sep_question = str(quest) + "\n" #seperates the questions by lines, for organizing
+        question_file = open("questions.txt", "a") #opens file name and a is append
+        question_file.write(sep_question) #will write the input in the txt file
+        question_file.close()
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv) #this is the application that will open
