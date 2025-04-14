@@ -35,23 +35,36 @@ class quiz(QWidget):
         self.correct = QComboBox()
         self.correct.addItems(["a", "b", "c", "d"])
 
-        quest = layout.addRow(QLabel("Question:"), self.question) #adds a row to accept input
-        a = layout.addRow(QLabel("a):"), self.a)
-        b = layout.addRow(QLabel("b):"), self.b)
-        c = layout.addRow(QLabel("c):"), self.c)
-        d = layout.addRow(QLabel("d):"), self.d)
-        correct = layout.addRow(QLabel("What is the correct answer?:"), self.correct)
+        #adds a row to accept input
+        layout.addRow(QLabel("Question:"), self.question)
+        layout.addRow(QLabel("a):"), self.a)
+        layout.addRow(QLabel("b):"), self.b)
+        layout.addRow(QLabel("c):"), self.c)
+        layout.addRow(QLabel("d):"), self.d)
+        layout.addRow(QLabel("Correct answer:"), self.correct)
 
-        answers = a, b, c, d, correct
-        sep_answers = str(answers) + "\n"
+        #a submit button
+        submit = QPushButton("Submit")
+        submit.setFont(QFont("Arial", 10, QFont.Weight.Bold))
+        submit.clicked.connect(self.save_data)
+        layout.addRow(submit)
+
+    def save_data(self): #saves the question and answers to files
+        quest = self.question.text()
+        a = self.a.text()
+        b = self.b.text()
+        c = self.c.text()
+        d = self.d.text()
+        correct = self.correct.currentText()
+
+        #now formatted and organized
+        quest_file = open("questions.txt", "a")
+        quest_file.write(f"{quest}\n")
+
         answer_file = open("answers.txt", "a")
-        answer_file.write(sep_answers)
-        answer_file.close()
+        answer_file.write(f"a) {a}, b) {b}, c) {c}, d) {d}\nCorrect: {correct}\n")
 
-        sep_question = str(quest) + "\n" #seperates the questions by lines, for organizing
-        question_file = open("questions.txt", "a") #opens file name and a is append
-        question_file.write(sep_question) #will write the input in the txt file
-        question_file.close()
+        print("Saved")
 
 
 if __name__ == "__main__":
