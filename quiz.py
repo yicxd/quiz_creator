@@ -20,31 +20,29 @@ while True:
     window.setLayout(layout)
     window.show() #will open the window
     try:
-        layout.addRow(QLabel("Question:"))
-        sep_question = question + "\n" #seperates the questions by lines, for organizing
+        question = layout.addRow(QLabel("Question:")) #adds a row to accept input
+        sep_question = str(question) + "\n" #seperates the questions by lines, for organizing
         question_file = open("questions.txt", "a") #opens file name and a is append
         question_file.write(sep_question) #will write the input in the txt file
         question_file.close()
 
-        for i in range(97, 101):
-            layout.addRow("Option " + chr(i) + ") ", QLineEdit())
-            answers = input("Enter four answers for that question - Option " + chr(i) + ") ")#used characters as choices
-            sep_answers = answers + "\n"
+        for i in range(97, 101): #97 is 'a' in character
+            answers = layout.addRow(QLabel("Enter four answers for that question - Option " + chr(i) + ") "))#switches the number into characters
+            sep_answers = str(answers) + "\n"
             answer_file = open("answers.txt", "a")
             answer_file.write(sep_answers)
             answer_file.close()
 
         correct = None
         while correct not in {"a", "b", "c", "d", "A", "B", "C", "D"}:
-            correct = input('Which one is the correct answer? a, b, c, d: ')
-            continue
-
-        again = input("If you would like to test this code again type '1' and if you want to end it all type anything: ")
-        if again == "1":
+            correct = layout.addRow(QLabel("Which one is the correct answer? a, b, c, d: "))
             continue
         else:
-            exit()
-            sys.exit(app.exec()) #the application will also close
+            break
+
+#will use a button instead for retries
 
     except ValueError:
         print("how did you trigger ValueError?")
+
+sys.exit(app.exec())
