@@ -33,15 +33,24 @@ class quiz(QWidget):
         answer_file.write(sep_answers)
         answer_file.close()
 
-        layout.addRow(QLabel("Question:")) #adds a row to accept input
-        layout.addRow(QLabel("a):"))
-        layout.addRow(QLabel("b):"))
-        layout.addRow(QLabel("c):"))
-        layout.addRow(QLabel("d):"))
-        layout.addRow(QLabel("What is the correct answer?:"))
+        self.question = QLineEdit()
+        self.question.setPlaceholderText("Enter here")
+
+        self.answers = QLineEdit()
+        self.answers.setPlaceholderText("Enter here")
+
+        self.correct = QComboBox()
+        self.correct.addItems(["a", "b", "c", "d"])
+
+        layout.addRow(QLabel("Question:"), self.question) #adds a row to accept input
+        layout.addRow(QLabel("a):"), self.answers)
+        layout.addRow(QLabel("b):"), self.answers)
+        layout.addRow(QLabel("c):"), self.answers)
+        layout.addRow(QLabel("d):"), self.answers)
+        layout.addRow(QLabel("What is the correct answer?:"), self.correct)
 
 if __name__ == "__main__":
-    app = QApplication([]) #this is the application that will open
+    app = QApplication(sys.argv) #this is the application that will open
     
     font = QFont()
     font.setFamily("Arial")
