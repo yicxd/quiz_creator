@@ -10,9 +10,8 @@ class quiz(QWidget):
     def __init__(self):
         super().__init__()
 
-        window = QWidget() #this is the receiver of mouse and keyboard actions
-        window.setWindowTitle("Quiz Creator") #title
-        window.setFixedSize(500, 600) #resolution of the window
+        self.setWindowTitle("Quiz Creator") #title
+        self.setFixedSize(500, 600) #resolution of the window
         
         #layout type and spacing
         layout = QFormLayout()
