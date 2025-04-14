@@ -1,7 +1,7 @@
 import sys
 from PyQt6.QtWidgets import ( 
     QApplication, QFormLayout, QLineEdit, QWidget, #these are the main functions for the gui
-    QLabel, QComboBox, QPushButton
+    QLabel, QComboBox, QPushButton, QTextEdit
 )
 from PyQt6.QtGui import QFont #these are for aesthetics
 from PyQt6.QtCore import Qt #for alignment
@@ -20,7 +20,18 @@ class quiz(QWidget):
         layout.setContentsMargins(30, 30, 30, 30)
         self.setLayout(layout)
 
-        self.question = QLineEdit(placeholderText="Enter here")
+        #title for the gui
+        title = QLabel("Quiz Creator")
+        title_font = QFont()
+        title_font.setPointSize(16)
+        title_font.setBold(True)
+        title.setFont(title_font)
+        title.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        layout.addRow(title)
+
+        layout.addRow(QLabel(" ")) #for spacing
+
+        self.question = QTextEdit(placeholderText="Enter here")
         self.a = QLineEdit(placeholderText="Enter here")
         self.b = QLineEdit(placeholderText="Enter here")
         self.c = QLineEdit(placeholderText="Enter here")
@@ -37,13 +48,13 @@ class quiz(QWidget):
         layout.addRow(QLabel("Correct answer:"), self.correct)
 
         #a submit button
-        submit = QPushButton("Submit")
+        submit = QPushButton("Save")
         submit.setFont(QFont("Arial", 10, QFont.Weight.Bold))
         submit.clicked.connect(self.save_data)
         layout.addRow(submit)
 
     def save_data(self): #saves the question and answers to files
-        quest = self.question.text()
+        quest = self.question.toPlainText()
         a = self.a.text()
         b = self.b.text()
         c = self.c.text()
