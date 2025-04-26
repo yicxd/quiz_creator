@@ -81,10 +81,10 @@ class quiz(QWidget):
 
     def save_data(self): #saves the question and answers to files
         quest = self.question.toPlainText()
-        a = self.a.text() #single name variable because its literally just a single letter choice
-        b = self.b.text() #please please please
-        c = self.c.text()
-        d = self.d.text()
+        choice_a = self.a.text()
+        choice_b = self.b.text()
+        choice_c = self.c.text()
+        choice_d = self.d.text()
         correct = self.correct.currentText()
 
         if not quest or not a or not b or not c or not d: #checks if the fields are complete
@@ -97,7 +97,7 @@ class quiz(QWidget):
         quest_file.write(f"{quest}\n")
 
         answer_file = open("answers.txt", "a")
-        answer_file.write(f"a) {a}, b) {b}, c) {c}, d) {d}\nCorrect: {correct}\n")
+        answer_file.write(f"a) {choice_a}, b) {choice_b}, c) {choice_c}, d) {choice_d}\nCorrect: {correct}\n")
 
         self.status_label.setText("Saved")
         self.status_label.setStyleSheet("color: #2da89e; font-weight: bold;")
