@@ -81,8 +81,8 @@ class quiz(QWidget):
 
     def save_data(self): #saves the question and answers to files
         quest = self.question.toPlainText()
-        a = self.a.text()
-        b = self.b.text()
+        a = self.a.text() #single name variable because its literally just a single letter choice
+        b = self.b.text() #please please please
         c = self.c.text()
         d = self.d.text()
         correct = self.correct.currentText()
