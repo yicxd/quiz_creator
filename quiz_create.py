@@ -87,7 +87,7 @@ class quiz(QWidget):
         choice_d = self.d.text()
         correct = self.correct.currentText()
 
-        if not quest or not a or not b or not c or not d: #checks if the fields are complete
+        if not quest or not choice_a or not choice_b or not choice_c or not choice_d: #checks if the fields are complete
             self.status_label.setText("Please fill in all the fields")
             self.status_label.setStyleSheet("color: #800080; font-weight: bold;")
             return
@@ -95,9 +95,11 @@ class quiz(QWidget):
         #now formatted and organized
         quest_file = open("questions.txt", "a")
         quest_file.write(f"{quest}\n")
+        quest_file.close()
 
         answer_file = open("answers.txt", "a")
         answer_file.write(f"a) {choice_a}, b) {choice_b}, c) {choice_c}, d) {choice_d}\nCorrect: {correct}\n")
+        answer_file.close()
 
         self.status_label.setText("Saved")
         self.status_label.setStyleSheet("color: #2da89e; font-weight: bold;")
