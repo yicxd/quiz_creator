@@ -1,19 +1,23 @@
+import random
+
+#file management
 question = open("questions.txt")
 quest_line = question.readlines()
+total_lines = len(quest_line)
 question.close()
 
 answer = open("answers.txt")
 ans_line = answer.readlines()
 question.close()
 
-print (quest_line[0]) #well it turns out file lines start at 0 so
-print (ans_line[0])   #answer lines are now quest_lines times 2(for the question) PLUS 1(for the correct question)
-print (ans_line[1])
+#randomization
+random_num = random.randrange(0, total_lines)
 
-print (quest_line[1])
-print (ans_line[2])
-print (ans_line[3])
+#print the quiz
+rand_quest = quest_line[random_num]
+choices = ans_line[random_num * 2]
+correct_ans = ans_line[(random_num * 2) + 1]
 
-print (quest_line[2])
-print (ans_line[4])
-print (ans_line[5])
+print (rand_quest)
+print (choices)
+print (correct_ans)
