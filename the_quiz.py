@@ -1,23 +1,19 @@
-"""
-ok so in the question file each question is seperated by lines
-so we could just print each line for each question
-"""
+question = open("questions.txt")
+quest_line = question.readlines()
+question.close()
 
-"""
-in the answer file the odd numbers are the choices
-while the right answers are the even numbered lines
-"""
+answer = open("answers.txt")
+ans_line = answer.readlines()
+question.close()
 
-"""
-for randomization the program will pick a number and then print that line of question
-for the answers its the number of the line question times 2 (for correct answer) minus 1 (the choices)
+print (quest_line[0]) #well it turns out file lines start at 0 so
+print (ans_line[0])   #answer lines are now quest_lines times 2(for the question) PLUS 1(for the correct question)
+print (ans_line[1])
 
-example
+print (quest_line[1])
+print (ans_line[2])
+print (ans_line[3])
 
-question    choices    answer
-1           1          2
-2           3          4
-3           5          6
-4           7          8
-5           9          10
-"""
+print (quest_line[2])
+print (ans_line[4])
+print (ans_line[5])
