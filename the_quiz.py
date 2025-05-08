@@ -1,4 +1,13 @@
+import tkinter as tk
+from tkinter import ttk, messagebox
 import random
+
+#the window
+window = tk.Tk()
+window.title("Quiz")
+window.geometry("600x600")
+window.mainloop() #opens the window
+        
 
 #file management
 question = open("questions.txt")
