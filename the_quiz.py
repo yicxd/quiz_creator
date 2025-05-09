@@ -26,41 +26,46 @@ class the_quiz():
             
     def questions(self):
         #file management
-        question = open("questions.txt")
-        quest_line = question.readlines()
+        with open("questions.txt") as question:
+            quest_line = question.readlines()
         total_lines = len(quest_line)
-        question.close()
 
-        answer = open("answers.txt")
-        ans_line = answer.readlines()
-        question.close()
+        with open("answers.txt") as answer:
+            ans_line = [line.strip() for line in answer.readlines()]
 
         #randomization
         random_num = random.randrange(0, total_lines)
 
         #print the quiz
-        rand_quest = quest_line[random_num]
+        rand_quest = quest_line[random_num].strip()
         choices = ans_line[random_num * 2]
         correct_ans = ans_line[(random_num * 2) + 1]
+
+        correct_ans = correct_ans.split(": ")[1].strip()
+        options = [opt.strip() for opt in choices.split(',')]
 
         #stores everything in a list
         self.quiz_data = []
         self.quiz_data.append({
                     "question": rand_quest,
-                    "options": choices,
+                    "options": options,
                     "correct": correct_ans
                 })
 
         #label of question
-        self.current_question = self.quiz_data
+        self.current_question = self.quiz_data[0]
         
         #updates the current display
         self.question_label.config(text=self.current_question["question"])
 
+        #clears previous option
+        for widget in self.options_frame.winfo_children():
+            widget.destroy()
+
         #buttons for option
-        for option in ["options"]:
-            button = ttk.Radiobutton(self.options_frame, text=option.strip(), 
-            variable=self.selected_option,value=option.strip())
+        for option in self.current_question["options"]:
+            button = ttk.Radiobutton(self.options_frame, text=option, 
+            variable=self.selected_option,value=option[0])
             button.pack(anchor=tk.W, pady=5, ipady=5)
         
         #resets the selections
@@ -79,6 +84,14 @@ class the_quiz():
         #frame for answers
         self.options_frame = ttk.Frame(self.question_frame)
         self.options_frame.pack(pady=10)
+
+        #a next question button
+        self.button_frame = ttk.Frame(self.window)
+        self.button_frame.pack(pady=20)
+        
+        self.next_button = ttk.Button(self.button_frame, 
+        text="Next Question", command=self.questions)
+        self.next_button.pack(side=tk.LEFT, padx=10)
 
 if __name__ == "__main__":
     root = tk.Tk()
