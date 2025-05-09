@@ -7,7 +7,13 @@ class the_quiz():
     def __init__(self, root):
         self.window = root
         self.window.title("Quiz")
-        self.window.geometry("600x600")
+        
+        #centerinng the window
+        screen_width = self.window.winfo_screenwidth() #your resolution
+        screen_height = self.window.winfo_screenheight()
+        center_x = int(screen_width/2 - 800/2)
+        center_y = int(screen_height/2 - 600/2)
+        self.window.geometry(f'{800}x{600}+{center_x}+{center_y}')
 
             
     def questions():
