@@ -18,13 +18,33 @@ class the_quiz():
         #quiz variables
         self.selected_option = tk.StringVar()
         self.current_question = None
+        self.score = 0
+        self.question_count = 0
 
         #calling the functions
         self.widgets()
         self.questions()
 
+    def check_answer(self):
+        #checks if an option is selected
+        if not self.selected_option.get():
+            messagebox.showwarning("No Selection", "Please select an answer.")
+            return False
+        
+        #check if the answer is correct
+        is_correct = (self.selected_option.get() == self.current_question["correct"])
+        if is_correct:
+            self.score += 1
+        
+        #updates score display
+        self.score_label.config(text=f"Score: {self.score}/{self.question_count}")
+        return True
             
     def questions(self):
+        #only continues if there is a answer selected
+        if self.question_count > 0 and not self.check_answer():
+            return
+        
         #file management
         with open("questions.txt") as question:
             quest_line = question.readlines()
@@ -45,12 +65,11 @@ class the_quiz():
         options = [opt.strip() for opt in choices.split(',')]
 
         #stores everything in a list
-        self.quiz_data = []
-        self.quiz_data.append({
-                    "question": rand_quest,
-                    "options": options,
-                    "correct": correct_ans
-                })
+        self.quiz_data = [{
+                "question": rand_quest,
+                "options": options,
+                "correct": correct_ans
+        }]
 
         #label of question
         self.current_question = self.quiz_data[0]
@@ -70,6 +89,10 @@ class the_quiz():
         
         #resets the selections
         self.selected_option.set("")
+
+        #+1 for every question asked
+        self.question_count += 1
+        self.score_label.config(text=f"Score: {self.score}")
 
     def widgets(self):
         #frame for questions
@@ -92,6 +115,12 @@ class the_quiz():
         self.next_button = ttk.Button(self.button_frame, 
         text="Next Question", command=self.questions)
         self.next_button.pack(side=tk.LEFT, padx=10)
+
+        #score progress bar
+        self.progress_frame = ttk.Frame(self.window)
+        self.progress_frame.pack(pady=10)
+        self.score_label = ttk.Label(self.progress_frame, text=f"Score: {self.score}")
+        self.score_label.pack(side=tk.RIGHT, padx=10)
 
 if __name__ == "__main__":
     root = tk.Tk()
