@@ -20,10 +20,23 @@ class the_quiz():
         self.current_question = None
         self.score = 0
         self.question_count = 0
+        self.used_question_num = set()#tracks which questions have been used
+        self.total_questions = 0
 
         #calling the functions
         self.widgets()
+        self.preload_questions()
         self.questions()
+
+    def preload_questions(self): #preloading the questions instead of loading one by one
+        #file management
+        with open("questions.txt") as question:
+            self.all_questions = [quest.strip() for quest in question.readlines()]
+
+        with open("answers.txt") as answer:
+            self.all_answers = [line.strip() for line in answer.readlines()]
+        
+        self.total_questions = len(self.all_questions)
 
     def check_answer(self):
         #checks if an option is selected
@@ -37,7 +50,7 @@ class the_quiz():
             self.score += 1
         
         #updates score display
-        self.score_label.config(text=f"Score: {self.score}/{self.question_count}")
+        self.score_label.config(text=f"Score: {self.score}")
         return True
             
     def questions(self):
@@ -45,21 +58,22 @@ class the_quiz():
         if self.question_count > 0 and not self.check_answer():
             return
         
-        #file management
-        with open("questions.txt") as question:
-            quest_line = question.readlines()
-        total_lines = len(quest_line)
-
-        with open("answers.txt") as answer:
-            ans_line = [line.strip() for line in answer.readlines()]
-
-        #randomization
-        random_num = random.randrange(0, total_lines)
+        #checks if all questions have been used
+        if len(self.used_question_num) >= self.total_questions:
+            messagebox.showinfo("Quiz Complete", 
+            f"Final score: {self.score}")
+            self.next_button.config(state=tk.DISABLED)
+            return
+        
+        #get a random question that hasnt shown yet
+        available_num = set(range(self.total_questions)) - self.used_question_num
+        random_num = random.choice(list(available_num))
+        self.used_question_num.add(random_num)
 
         #print the quiz
-        rand_quest = quest_line[random_num].strip()
-        choices = ans_line[random_num * 2]
-        correct_ans = ans_line[(random_num * 2) + 1]
+        rand_quest = self.all_questions[random_num]
+        choices = self.all_answers[random_num * 2]
+        correct_ans = self.all_answers[(random_num * 2) + 1]
 
         correct_ans = correct_ans.split(": ")[1].strip()
         options = [opt.strip() for opt in choices.split(',')]
